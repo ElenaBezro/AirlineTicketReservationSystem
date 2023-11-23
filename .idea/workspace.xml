@@ -4,18 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="81e962a7-ac75-47aa-b626-1df5581d5515" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/db/DatabaseConnector.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/properties/PropertiesDB.java" afterDir="false" />
+    <list default="true" id="81e962a7-ac75-47aa-b626-1df5581d5515" name="Changes" comment="use JDBC to insert new flight record">
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/bookingManagement/Booking.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/customerManagement/Customer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/db/DatabaseBooking.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/db/DatabaseCustomer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/db/DatabaseFlight.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/db/DatabaseTransactions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/flightManagement/Flight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/db/DatabaseConnector.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +31,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2YULwKzAZps0lcWDUhwXnvtBINC" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -54,6 +57,11 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="db" />
+      <recent name="bookingManagement" />
+      <recent name="customerManagement" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -64,6 +72,30 @@
       <option name="presentableId" value="Default" />
       <updated>1700575453823</updated>
     </task>
+    <task id="LOCAL-00001" summary="use JDBC to insert new flight record">
+      <option name="closed" value="true" />
+      <created>1700645912626</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1700645912627</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="use JDBC to insert new flight record" />
+    <option name="LAST_COMMIT_MESSAGE" value="use JDBC to insert new flight record" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/db/DatabaseFlight.java</url>
+          <line>105</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
