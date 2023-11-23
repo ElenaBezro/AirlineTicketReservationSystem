@@ -4,18 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="81e962a7-ac75-47aa-b626-1df5581d5515" name="Changes" comment="use JDBC to insert new flight record">
+    <list default="true" id="81e962a7-ac75-47aa-b626-1df5581d5515" name="Changes" comment="use JDBC in CRUD operations in Flight, Customes, Bookings DB tables">
       <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/bookingManagement/Booking.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/customerManagement/Customer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/db/DatabaseBooking.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/db/DatabaseCustomer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/db/DatabaseFlight.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/db/DatabaseTransactions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/flightManagement/Flight.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/db/DatabaseConnector.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/db/DatabaseBooking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/db/DatabaseBooking.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/db/DatabaseFlight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/db/DatabaseFlight.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,12 +75,21 @@
       <option name="project" value="LOCAL" />
       <updated>1700645912627</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="use JDBC in CRUD operations in Flight, Customes, Bookings DB tables">
+      <option name="closed" value="true" />
+      <created>1700760052397</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1700760052397</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="use JDBC to insert new flight record" />
-    <option name="LAST_COMMIT_MESSAGE" value="use JDBC to insert new flight record" />
+    <MESSAGE value="use JDBC in CRUD operations in Flight, Customes, Bookings DB tables" />
+    <option name="LAST_COMMIT_MESSAGE" value="use JDBC in CRUD operations in Flight, Customes, Bookings DB tables" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

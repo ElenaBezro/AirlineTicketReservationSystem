@@ -121,11 +121,13 @@ public class DatabaseFlight {
         }
     }
 
-    public void deleteFlight(int id) {
-        String url = properties.getUrl();
-        String user = properties.getUser();
-        String password = properties.getPassword();
-        try (Connection connection = DriverManager.getConnection(url, user, password)) {
+    public void deleteFlight(Connection connection, int id) throws SQLException {
+        try {
+            connection.setAutoCommit(false);
+
+            String parentColumnName = "flightID";
+            int bookingAffectedRows = DatabaseBooking.getInstance().deleteBookingCascade(connection, id, parentColumnName);
+
             String sql = "DELETE FROM Flight WHERE flightID = ?;";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 preparedStatement.setInt(1, id);
@@ -133,13 +135,21 @@ public class DatabaseFlight {
                 int affectedRows = preparedStatement.executeUpdate();
 
                 if (affectedRows > 0) {
-                    System.out.println("Record deleted successfully!");
+                    connection.commit();
+
+                    if (bookingAffectedRows > 0) {
+                        System.out.println("Booking Record deleted successfully!");
+                    }
+
+                    System.out.println("Flight Record deleted successfully!");
                 } else {
-                    System.out.println("Failed to delete the record.");
+                    System.out.println("Failed to delete the Flight record.");
+                    connection.rollback();
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            connection.rollback();
         }
     }
 }

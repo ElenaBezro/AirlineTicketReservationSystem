@@ -1,7 +1,6 @@
 package db;
 
 import bookingManagement.Booking;
-import flightManagement.Flight;
 import properties.PropertiesDB;
 
 import java.sql.*;
@@ -123,6 +122,24 @@ public class DatabaseBooking {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public int deleteBookingCascade(Connection connection, int parentID, String parentColumnName) throws SQLException {
+        String sql = "DELETE FROM Bookings WHERE " + parentColumnName + " = ?;";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, parentID);
+
+            int affectedRows = preparedStatement.executeUpdate();
+
+            if (affectedRows > 0) {
+                System.out.println("Booking record is ready to delete!");
+            } else {
+                System.out.println("There is no Booking with " + parentColumnName + " = " + parentID + ".");
+            }
+            return affectedRows;
+        } catch (SQLException e) {
+            throw new SQLException("Failed to delete the Booking record.");
         }
     }
 }
