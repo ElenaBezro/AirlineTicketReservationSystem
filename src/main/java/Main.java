@@ -40,7 +40,7 @@ public class Main {
         try {
             connection = DriverManager.getConnection(url, user, password);
             //Booking a Flight using transaction
-            DatabaseBooking.getInstance().bookingFlight(connection, 12, 7, 5, 300, "Pending");
+            DatabaseBooking.getInstance().bookingFlight(connection, 15, 1, 2, 30, "Pending");
         }
         catch (SQLException e) {
             e.printStackTrace();

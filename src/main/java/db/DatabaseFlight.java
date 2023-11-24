@@ -140,7 +140,7 @@ public class DatabaseFlight {
         }
     }
 
-    public void updateFlightInTransaction(Connection conn, int id, String columnName, String value) throws SQLException {
+    public void updateFlightColumn(Connection conn, int id, String columnName, String value) throws SQLException {
 
         try {
             String sql = "UPDATE Flight SET " + columnName + " = ? WHERE flightID = ?;";
@@ -163,6 +163,29 @@ public class DatabaseFlight {
             }
         } catch (SQLException e) {
             throw new SQLException("Failed to update the record.");
+        }
+    }
+
+    public void updateAvailableSeats(Connection conn, int flightID, int numberOfPassengers) throws SQLException {
+
+        try {
+            String sql = "UPDATE Flight SET seatsAvailable = seatsAvailable - ? WHERE flightID = ? AND seatsAvailable >= ?;";
+            try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+
+                preparedStatement.setInt(1, numberOfPassengers);
+                preparedStatement.setInt(2, flightID);
+                preparedStatement.setInt(3, numberOfPassengers);
+
+                int affectedRows = preparedStatement.executeUpdate();
+
+                if (affectedRows > 0) {
+                    System.out.println("Flight record updated successfully!");
+                } else {
+                    throw new SQLException("Failed to update the Flight record.");
+                }
+            }
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
         }
     }
 

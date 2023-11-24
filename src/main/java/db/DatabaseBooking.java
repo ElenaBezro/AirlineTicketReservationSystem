@@ -21,35 +21,22 @@ public class DatabaseBooking {
         return instance;
     }
 
-    //Create a transactional method for booking a flight. This should include
-    //inserting a record into the Bookings table and updating the SeatsAvailable
-    //in the Flights table.
+    //Create a transactional method for booking a flight:
+    //inserting a record into the Bookings table
+    // and updating the SeatsAvailable in the Flights table.
 
     public void bookingFlight(Connection conn, int bookingID, int customerID,
                               int flightID,
                               int numberOfPassengers, String status) {
 
         try {
-            //TODO:  instead og checking availableSeats,
-            // Use a single SQL UPDATE statement with a WHERE clause to check and update
-            //    String sqlUpdate = "UPDATE Flight SET " + columnName + " = " + columnName + " - ? WHERE flightID = ? AND " + columnName + " >= ?";
-            //    try (PreparedStatement preparedStatement = conn.prepareStatement(sqlUpdate)) {
-            //        preparedStatement.setInt(1, numberOfPassengers);
-            //        preparedStatement.setInt(2, flightID);
-            //        preparedStatement.setInt(3, numberOfPassengers);
-            int availableSeats = DatabaseFlight.getInstance().getSeatsAvailable(conn, flightID);
-            if (availableSeats < numberOfPassengers) {
-                throw new SQLException("Not enough seats");
-            }
             conn.setAutoCommit(false);
             try {
 
                 String bookingDate = LocalDate.now().toString();
                 insertBookingInTransaction(conn, bookingID, customerID, flightID, bookingDate, numberOfPassengers, status);
 
-                String newSeatsAvaliable = String.valueOf(availableSeats - numberOfPassengers);
-                String columnName = "seatsAvailable";
-                DatabaseFlight.getInstance().updateFlightInTransaction(conn, flightID, columnName, newSeatsAvaliable);
+                DatabaseFlight.getInstance().updateAvailableSeats(conn, flightID, numberOfPassengers);
 
                 conn.commit();
             } catch (SQLException e) {
@@ -79,13 +66,13 @@ public class DatabaseBooking {
             int affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows > 0) {
-                System.out.println("Record is ready to commit!");
+                System.out.println("Booking record is ready to commit!");
             } else {
-                throw new SQLException("Failed to insert the Booking record.");
+                throw new SQLException("Failed to insert the Booking record with bookingID = " + bookingID);
             }
 
         } catch (SQLException e) {
-            throw new SQLException("Failed to insert the Booking record.");
+            throw new SQLException(e.getMessage());
         }
     }
 
