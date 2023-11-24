@@ -98,6 +98,25 @@ public class DatabaseFlight {
         return null;
     }
 
+    public int getSeatsAvailable(Connection conn, int id) {
+        try {
+            String sql = "SELECT seatsAvailable FROM Flight WHERE flightID = ?;";
+            try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+                preparedStatement.setInt(1, id);
+
+                try (ResultSet result = preparedStatement.executeQuery()) {
+                    if (result.next()) {
+                        return result.getInt("seatsAvailable");
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public void updateFlightDepartureTime(int id, String departureTime) {
         String url = properties.getUrl();
         String user = properties.getUser();
@@ -118,6 +137,32 @@ public class DatabaseFlight {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void updateFlightInTransaction(Connection conn, int id, String columnName, String value) throws SQLException {
+
+        try {
+            String sql = "UPDATE Flight SET " + columnName + " = ? WHERE flightID = ?;";
+            try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+
+                if (columnName.equals("seatsAvailable")) {
+                    preparedStatement.setInt(1, Integer.parseInt(value));
+                } else {
+                    preparedStatement.setString(1, columnName);
+                }
+                preparedStatement.setInt(2, id);
+
+                int affectedRows = preparedStatement.executeUpdate();
+
+                if (affectedRows > 0) {
+                    System.out.println("Record updated successfully!");
+                } else {
+                    throw new SQLException("Failed to update the record.");
+                }
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Failed to update the record.");
         }
     }
 

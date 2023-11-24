@@ -4,6 +4,7 @@ import bookingManagement.Booking;
 import properties.PropertiesDB;
 
 import java.sql.*;
+import java.time.LocalDate;
 
 public class DatabaseBooking {
     private PropertiesDB properties;
@@ -18,6 +19,74 @@ public class DatabaseBooking {
             instance = new DatabaseBooking();
         }
         return instance;
+    }
+
+    //Create a transactional method for booking a flight. This should include
+    //inserting a record into the Bookings table and updating the SeatsAvailable
+    //in the Flights table.
+
+    public void bookingFlight(Connection conn, int bookingID, int customerID,
+                              int flightID,
+                              int numberOfPassengers, String status) {
+
+        try {
+            //TODO:  instead og checking availableSeats,
+            // Use a single SQL UPDATE statement with a WHERE clause to check and update
+            //    String sqlUpdate = "UPDATE Flight SET " + columnName + " = " + columnName + " - ? WHERE flightID = ? AND " + columnName + " >= ?";
+            //    try (PreparedStatement preparedStatement = conn.prepareStatement(sqlUpdate)) {
+            //        preparedStatement.setInt(1, numberOfPassengers);
+            //        preparedStatement.setInt(2, flightID);
+            //        preparedStatement.setInt(3, numberOfPassengers);
+            int availableSeats = DatabaseFlight.getInstance().getSeatsAvailable(conn, flightID);
+            if (availableSeats < numberOfPassengers) {
+                throw new SQLException("Not enough seats");
+            }
+            conn.setAutoCommit(false);
+            try {
+
+                String bookingDate = LocalDate.now().toString();
+                insertBookingInTransaction(conn, bookingID, customerID, flightID, bookingDate, numberOfPassengers, status);
+
+                String newSeatsAvaliable = String.valueOf(availableSeats - numberOfPassengers);
+                String columnName = "seatsAvailable";
+                DatabaseFlight.getInstance().updateFlightInTransaction(conn, flightID, columnName, newSeatsAvaliable);
+
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                conn.rollback();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insertBookingInTransaction(Connection conn, int bookingID, int customerID,
+                                           int flightID, String bookingDate,
+                                           int numberOfPassengers, String status) throws SQLException {
+
+        try {
+            String sql = "INSERT INTO Bookings (bookingID, customerID, flightID, bookingDate, numberOfPassengers, status)\n" +
+                    "VALUES (?, ?, ?, ?, ?, ?);";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+            preparedStatement.setInt(1, bookingID);
+            preparedStatement.setInt(2, customerID);
+            preparedStatement.setInt(3, flightID);
+            preparedStatement.setString(4, bookingDate);
+            preparedStatement.setInt(5, numberOfPassengers);
+            preparedStatement.setString(6, status);
+            int affectedRows = preparedStatement.executeUpdate();
+
+            if (affectedRows > 0) {
+                System.out.println("Record is ready to commit!");
+            } else {
+                throw new SQLException("Failed to insert the Booking record.");
+            }
+
+        } catch (SQLException e) {
+            throw new SQLException("Failed to insert the Booking record.");
+        }
     }
 
     public void insertBooking(int bookingID, int customerID,
